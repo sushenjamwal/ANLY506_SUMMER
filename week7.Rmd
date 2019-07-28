@@ -1,0 +1,57 @@
+---
+<<<<<<< HEAD:week6.Rmd
+title: "Transformation"
+=======
+title: "week7"
+>>>>>>> af8d980a5102d18278e2238f3bfa402a0bf75192:week7.Rmd
+author: "Sushen S Jamwal"
+date: "July 2, 2019"
+output:
+  pdf_document: default
+---
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+```
+
+
+#Preloaded data frame in R contains 336,776 flights that departed from New York City in 2013
+```{r}
+flights
+View(flights)
+```
+
+#filter() to pick observations by their values 
+```{r}
+feb1 <- filter(flights, month == 4, day == 1)
+filter(flights, month == 12 | month == 4)
+filter(flights, arr_delay <= 100, dep_delay <= 100)
+```
+
+#arrange() to re-order the rules
+```{r}
+arrange(flights, desc(dep_delay))
+```
+
+#select() to pick variables by their name
+```{r}
+select(flights, year, month, day)
+flights_sml <- select(flights, 
+                      year:day, 
+                      ends_with("delay"), 
+                      distance, 
+                      air_time)
+```
+#new variables USING mutate()
+
+```{r}
+mutate(flights_sml,
+       gain = dep_delay - arr_delay,
+       speed = distance / air_time * 60)
+```
+#summariSe
+```{r}
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
